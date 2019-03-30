@@ -5,7 +5,7 @@ Turma que começou em Março
 
 
 
-
+'''
 Integer valorMenu = Integer.parseInt(JOptionPane
 				.showInputDialog("1 - Para inserir novas pessoas \n"
 						+ "2 - Atualizar pessoa \n"
@@ -22,3 +22,4 @@ Integer valorMenu = Integer.parseInt(JOptionPane
 							+ "5 - Sair do programa"));
 			
 		}
+'''
