@@ -8,7 +8,7 @@ import br.com.atm.model.Pessoa;
 public class PessoaDAO implements DAO<Pessoa> {
 
 	private List<Pessoa> listaDePessoas = new ArrayList<Pessoa>();
-	
+
 	@Override
 	public void incluir(Pessoa pessoa) {
 		listaDePessoas.add(pessoa);
@@ -40,5 +40,4 @@ public class PessoaDAO implements DAO<Pessoa> {
 		return listaDePessoas;
 	}
 
-	
 }
