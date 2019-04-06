@@ -2,6 +2,7 @@ package br.com.atm.model;
 
 public class ContaCorrente {
 
+	private Integer contaCorrenteId;
 	private Double saldo;
 	private Pessoa pessoa;
 
@@ -12,6 +13,14 @@ public class ContaCorrente {
 	public ContaCorrente(Pessoa pessoa, Double saldo) {
 		this.pessoa = pessoa;
 		this.saldo = saldo;
+	}
+
+	public Integer getContaCorrenteId() {
+		return contaCorrenteId;
+	}
+
+	public void setContaCorrenteId(Integer contaCorrenteId) {
+		this.contaCorrenteId = contaCorrenteId;
 	}
 
 	public void setSaldo(Double saldo) {

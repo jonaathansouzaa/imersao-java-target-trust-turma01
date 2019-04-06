@@ -16,15 +16,11 @@ public class PessoaDAO implements DAO<Pessoa> {
 	public void incluir(Pessoa pessoa) {
 		try {
 			String comandoSQL = "INSERT INTO pessoa (nome, cpf) values (?, ?)";
-
 			Connection conexao = JDBCConnection.getConnection();
-
 			PreparedStatement ps = conexao.prepareStatement(comandoSQL);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getCpf());
-
 			ps.execute();
-
 			conexao.close();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
@@ -35,16 +31,13 @@ public class PessoaDAO implements DAO<Pessoa> {
 	public void atualizar(Pessoa pessoa) {
 		try {
 			String comandoSQL = "UPDATE pessoa SET nome = ?, cpf = ? WHERE pessoa_id = ?";
-
 			Connection conexao = JDBCConnection.getConnection();
-
 			PreparedStatement ps = conexao.prepareStatement(comandoSQL);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getCpf());
 			ps.setInt(3, pessoa.getPessoaId());
-
 			ps.execute();
-
+			ps.close();
 			conexao.close();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
@@ -55,14 +48,10 @@ public class PessoaDAO implements DAO<Pessoa> {
 	public void deletar(Pessoa pessoa) {
 		try {
 			String comandoSQL = "DELETE FROM pessoa WHERE pessoa_id = ?";
-
 			Connection conexao = JDBCConnection.getConnection();
-
 			PreparedStatement ps = conexao.prepareStatement(comandoSQL);
 			ps.setInt(1, pessoa.getPessoaId());
-
 			ps.execute();
-
 			conexao.close();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
@@ -91,7 +80,35 @@ public class PessoaDAO implements DAO<Pessoa> {
 			
 			return pessoas;
 		} catch(SQLException exception) {
+			exception.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public Pessoa buscarPessoaPorCPF(String cpf) {
+		try {
+			String comandoSQL = "SELECT * FROM pessoa WHERE cpf = ?";
+
+			Connection conexao = JDBCConnection.getConnection();
+			PreparedStatement ps = conexao.prepareStatement(comandoSQL);
+			ps.setString(1, cpf);
+			ResultSet resultSet = ps.executeQuery();
 			
+			List<Pessoa> pessoas = new ArrayList<Pessoa>();
+			while(resultSet.next()) {
+				Pessoa pessoa = new Pessoa();
+				pessoa.setPessoaId(resultSet.getInt("pessoa_id"));
+				pessoa.setNome(resultSet.getString("nome"));
+				pessoa.setCpf(resultSet.getString("cpf"));
+				pessoas.add(pessoa);
+			}
+
+			conexao.close();
+			
+			return pessoas.get(0);
+		} catch(SQLException exception) {
+			exception.printStackTrace();
 		}
 		
 		return null;

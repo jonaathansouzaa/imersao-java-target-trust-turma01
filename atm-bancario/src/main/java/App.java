@@ -1,18 +1,19 @@
+import br.com.atm.dao.ContaCorrenteDAO;
 import br.com.atm.dao.PessoaDAO;
+import br.com.atm.model.ContaCorrente;
 import br.com.atm.model.Pessoa;
 
 public class App {
 	
     public static void main(String[] args) {
-    	
+    	Pessoa pessoa = new Pessoa("Jonathan", "123123123");
     	PessoaDAO pessoaDAO = new PessoaDAO();
-    	pessoaDAO.incluir(new Pessoa("Pedro", "123"));
-    	pessoaDAO.incluir(new Pessoa("João", "1234"));
-    	pessoaDAO.incluir(new Pessoa("Maria", "234"));
+    	pessoaDAO.incluir(pessoa);
+    	Pessoa jonathan = pessoaDAO.buscarPessoaPorCPF("123123123");
     	
-    	System.out.println("Lista das pessoas");
+    	ContaCorrenteDAO contaCorrenteDAO = new ContaCorrenteDAO();
+    	ContaCorrente contaCorrente = new ContaCorrente(jonathan, 0.0);
+    	contaCorrenteDAO.incluir(contaCorrente);
     	
-    	pessoaDAO.listar().forEach(pessoa -> System.out.println("Nome: " + pessoa.getNome() 
-    				+ "/ CPF: " + pessoa.getCpf()));
 	}
 }
